@@ -34,15 +34,16 @@ $categories = App::getRepository('Category')->getAllCategories();
                 <div class="row event">
                     <div class="span8">
                         <h3><a href="<?php
-                        if($search_type=="events")  
+                        if($search_type == "events")  
                         {
-                            $p="event" ;
-                            $eid=$event['event_id'];
-                        }else {
-                            $p="talk";
-                            $eid=$event['talk_id'];
+                            $p = "event" ;
+                            $eid = $event['event_id'];
                         }
-                        
+						else
+						{
+                            $p = "talk";
+                            $eid = $event['talk_id'];
+                        }
                         ViewHelper::url('?page='.$p.'&id=' . $eid) ?>"><?php echo $event['title'] ?></a></h3>
                         <p class="align-justify"><?php echo $event['summary'] ?></p>
                     </div>

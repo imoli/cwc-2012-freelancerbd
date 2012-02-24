@@ -15,15 +15,17 @@ class SearchRepository {
         if($search_type == "talks")
 		{
 		return $this->db->from('talks')
-                ->where('title %', $title."%" )
-		->limit($limit,$offset)
+                ->where('title %', "%".$title."%" )
+				->where('|summary %', "%".$title."%" )
+				->limit($limit,$offset)
                 ->many();
 		}
 		else
 		{
 		return $this->db->from('events')
-                ->where('title %', $title."%" )
-		->limit($limit,$offset)
+                ->where('title %', "%".$title."%" )
+				->where('|summary %', "%".$title."%" )
+				->limit($limit,$offset)
                 ->many();
 		}
 

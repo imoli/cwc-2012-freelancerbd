@@ -1,3 +1,7 @@
+        <?php
+        	$search_type = $_GET['search_type'];
+		?>
+
         <div class="span4">
 <!--search-->
             <div class="widget">
@@ -7,8 +11,8 @@
                     <input type="hidden" name="page" value="search" />
                     <div class="clearfix">
                     <select name="search_type" style="width:100px;">
-                        <option value = "events">Events</option>
-                        <option value = "talks">Talks</option>
+                        <option value = "events" <?php echo ($search_type=="events") ? 'selected="selected"' : ""; ?> >Events</option>
+                        <option value = "talks" <?php echo ($search_type=="talks") ? 'selected="selected"' : ""; ?>>Talks</option>
                     </select>
                     </div>
                 	<div class="clearfix">
