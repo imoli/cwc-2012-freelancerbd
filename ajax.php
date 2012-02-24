@@ -47,17 +47,23 @@ if($_POST['action']=='submit_tag'){
     header('Content-type: application/json');
     $data['talk_id'] = intval($_POST['talk_id']);
     $data['user_id'] = intval($_SESSION['user']['user_id']);
-    $data['tag']=strip_tags($_POST['tag']);
+    $data['tag'] = trim(strip_tags($_POST['tag']));
     
     if ($data['user_id'] == 0) {
         $rpath = ViewHelper::url('login', true);
         $response['status']='login';
         $response['path']=$rpath;
     }else {
+		try{
         $attend = App::getRepository('Talk')->tagCreate($data);
         $msg = "Your tag created.";
         $response['msg']=$msg;       
         $response['status']='success';
+		}catch(Exception $e){
+			$msg = "Your tag already created";
+       		$response['msg']=$msg;       
+        	$response['status']='success';
+		}
 
     }
     

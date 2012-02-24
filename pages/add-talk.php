@@ -72,12 +72,7 @@ include_once 'header.php';
                             <input class="xxlarge" id="slide_link" name="slide_link" size="30" type="text" value="<?php echo $_POST['slide_link'];?>">
                         </div>
                     </div>
-                     <div class="clearfix">
-                        <label for="xlInput3">Slide Link:</label>
-                        <div class="input">
                             <input type="hidden" name="event_id" value="<?php echo $talkId; ?>" />
-                        </div>
-                    </div>
            
 
 

@@ -42,7 +42,8 @@ class TalkRepository {
     
     public function getAllTags() {
         return $this->db->from('tags')
-                ->distinct('tag')
+                ->distinct()
+				->select('tag')
                 ->many();
     }
     
