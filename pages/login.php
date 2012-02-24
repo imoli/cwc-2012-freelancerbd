@@ -4,7 +4,8 @@ try {
     $openid = new LightOpenID('localhost');
 
     if (!$openid->mode) {
-        if ($_GET['page'] == 'login') {
+		
+        if (App::urlParameter(1) == 'login') {
             $openid->identity = 'https://www.google.com/accounts/o8/id';
             $openid->required = array('contact/email');
             header('Location: ' . $openid->authUrl());

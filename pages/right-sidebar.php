@@ -7,8 +7,8 @@
             <div class="widget">
 
                 <h4>Search</h4>
-                <form action="<?php ViewHelper::url('?page=search') ?>" class="form-stacked" method="get">
-                    <input type="hidden" name="page" value="search" />
+                <form action="<?php ViewHelper::url('search') ?>" class="form-stacked" method="get">
+                    <!--<input type="hidden" name="page" value="search" />-->
                     <div class="clearfix">
                     <select name="search_type" style="width:100px;">
                         <option value = "events" <?php echo ($search_type=="events") ? 'selected="selected"' : ""; ?> >Events</option>
@@ -30,7 +30,7 @@
 
                 <ul>
                     <?php foreach ($categories as $category): ?>
-                        <li><a href="<?php ViewHelper::url('?page=cat&id=' . $category['category_id']) ?>"><?php echo $category['title'] ?></a></li>
+                        <li><a href="<?php ViewHelper::url('cat/' . $category['category_id']) ?>"><?php echo $category['title'] ?></a></li>
                     <?php endforeach; ?>
                 </ul>
 
@@ -45,7 +45,7 @@
                     $tags=App::getRepository('Talk')->getAllTags();
                     
                     foreach ($tags as $tag): ?>
-                        <li><a href="<?php ViewHelper::url('?page=tags&tag_name=' . $tag['tag']) ?>"><?php echo $tag['tag'] ?></a></li>
+                        <li><a href="<?php ViewHelper::url('tags/' . $tag['tag']) ?>"><?php echo $tag['tag'] ?></a></li>
                     <?php endforeach; ?>
                 </ul>
 
@@ -57,9 +57,9 @@
                 <p>Arranging an event that is not listed here? Let us know! We love to get the word out about events the community would be interested in.</p>
                 <p style="text-align: center;">
                 	<?php if (empty($_SESSION['user']['user_id'])): ?>
-                		<a href="<?php ViewHelper::url('?page=login') ?>" class="btn success">Submit your event!</a>
+                		<a href="<?php ViewHelper::url('login') ?>" class="btn success">Submit your event!</a>
                 	<?php else: ?>
-                		<a href="<?php ViewHelper::url('?page=add-event') ?>" class="btn success">Submit your event!</a>
+                		<a href="<?php ViewHelper::url('add-event') ?>" class="btn success">Submit your event!</a>
                 	<?php endif; ?>	
                 		  	
                 		
@@ -69,9 +69,9 @@
 
             </div>
             
-            <?php 
-            if($_GET['page']=='event'){
-            include 'attend_sidebar.php'; 
+            <?php
+            if(App::urlParameter(1)=='event'){
+            	include 'attend_sidebar.php'; 
             }?>
 
         </div>

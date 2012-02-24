@@ -2,14 +2,16 @@
 
 include_once 'header.php';
 
+$tag_name = urldecode(App::urlParameter(2));
+
 //Paging initialization
-$limit = 2;
+$limit = 3;
 $currentpage = $_GET['p'];
 $link="?";
 ($currentpage) ? $start=($currentpage-1)*$limit : $start=0;
 $categories = App::getRepository('Category')->getAllCategories();
 $activeEvents = App::getRepository('Event')->getActiveEvents($limit,$start);
-$tags = App::getRepository('Talk')->getAllTalkByTag($_GET['tag_name']);
+$tags = App::getRepository('Talk')->getAllTalkByTag($tag_name);
 
 //print_r($tags);
 
@@ -21,7 +23,7 @@ $tags = App::getRepository('Talk')->getAllTalkByTag($_GET['tag_name']);
 
         <div id="main-content" class="span10">
 
-            <h4>All Talk by tags <i>[ <?php echo $_GET['tag_name'];?>]</i></h4>
+            <h4>All Talk by tags <i>[ <?php echo $tag_name;?>]</i></h4>
 
             <div class="events">
 
@@ -30,10 +32,10 @@ $tags = App::getRepository('Talk')->getAllTalkByTag($_GET['tag_name']);
                 <div class="row event">
 
                     <div class="span8">
-                        <h3><a href="<?php ViewHelper::url('?page=talk&id=' . $tag['talk_id']) ?>"><?php echo $tag['title'] ?></a></h3>
+                        <h3><a href="<?php ViewHelper::url('talk/' . $tag['talk_id']) ?>"><?php echo $tag['title'] ?></a></h3>
                         <p class="align-justify"><?php echo $tag['summary'] ?></p>
                         <p>
-                            <a href="<?php ViewHelper::url('?page=talk&id=' . $tag['talk_id'] . '#comments') ?>"><?php echo App::getRepository('Talk')->getCommentCount($tag['talk_id']); ?> comments</a> &nbsp;
+                            <a href="<?php ViewHelper::url('talk/' . $tag['talk_id'] . '#comments') ?>"><?php echo App::getRepository('Talk')->getCommentCount($tag['talk_id']); ?> comments</a> &nbsp;
                             
                         </p>
                     </div>

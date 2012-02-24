@@ -12,22 +12,23 @@ class SearchRepository {
     }
 
    public function getSearchByType($title,$search_type,$limit,$offset) {
-        if($search_type == "talks")
-		{
-		return $this->db->from('talks')
-                ->where('title %', "%".$title."%" )
-				->where('|summary %', "%".$title."%" )
+	   $sql_arr = array();
+	   $sql_str="";
+	   $keywords = explode(" ",$title);
+	   if(empty($keywords)){
+		   return false;
+	   }else{
+		   foreach($keywords as $kw){
+		   		$sql_arr[]="title LIKE '%{$kw}%'";
+				$sql_arr[]="summary LIKE '%{$kw}%'";
+		   }
+		   $sql_str=implode(" OR ",$sql_arr);
+	   }
+	   
+		return $this->db->from($search_type)
+                ->where($sql_str)
 				->limit($limit,$offset)
                 ->many();
-		}
-		else
-		{
-		return $this->db->from('events')
-                ->where('title %', "%".$title."%" )
-				->where('|summary %', "%".$title."%" )
-				->limit($limit,$offset)
-                ->many();
-		}
 
     }
 	
