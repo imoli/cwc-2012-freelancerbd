@@ -32,8 +32,8 @@
 
                     <ul class="nav">
                         <li><a href="<?php ViewHelper::url() ?>">Home</a></li>
-                        <li><a href="<?php ViewHelper::url('?page=events') ?>">Events</a></li>
-                        <li><a href="<?php ViewHelper::url('?page=about') ?>">About</a></li>
+                        <li><a href="<?php ViewHelper::url('events') ?>">Events</a></li>
+                        <li><a href="<?php ViewHelper::url('about') ?>">About</a></li>
                     </ul>
 
                     <span class="pull-right">
@@ -45,9 +45,9 @@
                                 $str_name=' ('.$userName['name'].')';
                             }
                             ?>
-                            <span><?php echo $_SESSION['user']['email'].$str_name;?></span> | <a href="<?php ViewHelper::url('?page=profile') ?>">Profile</a> | <a href="<?php ViewHelper::url('?page=logout') ?>">Logout</a>
+                            <span><?php echo $_SESSION['user']['email'].$str_name;?></span> | <a href="<?php ViewHelper::url('profile') ?>">Profile</a> | <a href="<?php ViewHelper::url('logout') ?>">Logout</a>
                         <?php else: ?>
-                            <a href="<?php ViewHelper::url('?page=login') ?>">
+                            <a href="<?php ViewHelper::url('login') ?>">
                                 <img width="150px" height="26px" src="<?php ViewHelper::url('assets/images/google_signin.png') ?>" alt="Sign in with Google">
                             </a>
                         <?php endif; ?>

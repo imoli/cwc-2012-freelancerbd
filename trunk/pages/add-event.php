@@ -100,16 +100,16 @@ if (!empty($_POST))
 			}
 			//============================================OLI==============================================
 			//$newfilename;
-			$data['logo'] = ($newfilename!='') ? "http://localhost/cwc2012/assets/images/".$newfilename:'';
+			$data['logo'] = ($newfilename!='') ? "http://localhost/cwc2012/assets/images/".$newfilename : 'http://placehold.it/90x90';
 		  
-		  $eventId = App::getRepository('Event')->create($data);
-                  
-	      
-	      $_SESSION['flash']['type'] = 'success';
-		  $_SESSION['flash']['message'] = 'Event Added Successfully.';
+			$eventId = App::getRepository('Event')->create($data);
 			
-		  header('Location: ' . ViewHelper::url('?page=event&id=' . $eventId, true));
-		  exit();
+			
+			$_SESSION['flash']['type'] = 'success';
+			$_SESSION['flash']['message'] = 'Event Added Successfully.';
+			
+			header('Location: ' . ViewHelper::url('event/' . $eventId, true));
+			exit();
 	 }
 }
 $categories = App::getRepository('Category')->getAllCategories();
@@ -138,7 +138,7 @@ $categories = App::getRepository('Category')->getAllCategories();
 
             <div class="post-comment">
 
-                <form action="<?php ViewHelper::url('?page=add-event') ?>" class="form-stacked" method="post"  enctype="multipart/form-data">
+                <form action="<?php ViewHelper::url('add-event') ?>" class="form-stacked" method="post"  enctype="multipart/form-data">
 
                     <div class="clearfix">
                         <label for="xlInput3">Event Title:</label>

@@ -8,7 +8,7 @@ if(!empty($ttl)){
 	//Paging initialization
 	$limit = 10;
 	$currentpage = $_GET['p'];
-	$link = "?page=search&";
+	$link = "search&";
 	($currentpage) ? $start=($currentpage-1)*$limit : $start=0;
 	
 	$events = App::getRepository('Search')->getSearchByType($ttl, $search_type, $limit, $start);
@@ -44,7 +44,7 @@ $categories = App::getRepository('Category')->getAllCategories();
                             $p = "talk";
                             $eid = $event['talk_id'];
                         }
-                        ViewHelper::url('?page='.$p.'&id=' . $eid) ?>"><?php echo $event['title'] ?></a></h3>
+                        ViewHelper::url(''.$p.'/' . $eid) ?>"><?php echo $event['title'] ?></a></h3>
                         <p class="align-justify"><?php echo $event['summary'] ?></p>
                     </div>
 

@@ -14,7 +14,8 @@ class EventRepository {
       public function getActiveEvents($limit,$offset) {
         return $this->db->from('events')
                 ->where('is_active = ', 1)
-		->limit($limit,$offset)
+				->limit($limit,$offset)
+				->sortDesc('event_id')
                 ->many()
 	;
     }

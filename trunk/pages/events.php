@@ -3,7 +3,7 @@
 include_once 'header.php';
 
 //Paging initialization
-$limit = 2;
+$limit = 3;
 $currentpage = $_GET['p'];
 $link="?";
 ($currentpage) ? $start=($currentpage-1)*$limit : $start=0;
@@ -36,10 +36,10 @@ $categories = App::getRepository('Category')->getAllCategories();
                     </div>
 
                     <div class="span8">
-                        <h3><a href="<?php ViewHelper::url('?page=event&id=' . $event['event_id']) ?>"><?php echo $event['title'] ?></a></h3>
+                        <h3><a href="<?php ViewHelper::url('event/' . $event['event_id']) ?>"><?php echo $event['title'] ?></a></h3>
                         <p class="align-justify"><?php echo $event['summary'] ?></p>
                         <p>
-                            <a href="<?php ViewHelper::url('?page=event&id=' . $event['event_id'] . '#comments') ?>"><?php echo $event['total_comments'] ?> comments</a> &nbsp;
+                            <a href="<?php ViewHelper::url('event/' . $event['event_id'] . '#comments') ?>"><?php echo $event['total_comments'] ?> comments</a> &nbsp;
                             <strong><span class="a_count_<?php echo $event['event_id'] ?>"><?php echo $event['total_attending'] ?></span> attending</strong> &nbsp;
                             <a href="#<?php echo $event['event_id'] ?>" class="btn small attend-event">I'm attending</a>
                         </p>

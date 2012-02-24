@@ -2,7 +2,9 @@
 
 include_once 'header.php';
 
-$talk = App::getRepository('Talk')->getTalkById($_GET['id']);
+$talkId = App::urlParameter(2);
+
+$talk = App::getRepository('Talk')->getTalkById($talkId);
 $event = App::getRepository('Event')->getEventById($talk['event_id']);
 $comments = App::getRepository('Comment')->getCommentsByTalk($talk['talk_id']);
 $categories = App::getRepository('Category')->getAllCategories();
@@ -18,7 +20,7 @@ $categories = App::getRepository('Category')->getAllCategories();
             <h2><?php echo $talk['title'] ?></h2>
             <div class="meta">
                 by <strong><?php echo $talk['speaker'] ?></strong> <br />
-                Talk at <a href="<?php ViewHelper::url('?page=event&id=' . $event['event_id']) ?>"><?php echo $event['title'] ?></a>
+                Talk at <a href="<?php ViewHelper::url('event/' . $event['event_id']) ?>"><?php echo $event['title'] ?></a>
             </div>
 
             <p class="align-justify"><?php echo nl2br($talk['summary']) ?></p>
@@ -37,7 +39,7 @@ $categories = App::getRepository('Category')->getAllCategories();
             <div class="post-comment">
 
                 <h4>Write a comment:</h4>
-                <form action="<?php ViewHelper::url('?page=comment') ?>" class="form-stacked" method="post">
+                <form action="<?php ViewHelper::url('comment') ?>" class="form-stacked" method="post">
 
                     <textarea class="xxlarge" id="comment" name="body" rows="7" cols="50"></textarea>
                     <span class="help-block">Please be polite in your comment as this is a social site.</span> <br />

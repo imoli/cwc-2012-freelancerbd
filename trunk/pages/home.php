@@ -2,7 +2,7 @@
 include_once 'header.php';
 
 //Paging initialization
-$limit = 2;
+$limit = 3;
 $currentpage = $_GET['p'];
 $link="?";
 ($currentpage) ? $start=($currentpage-1)*$limit : $start=0;
@@ -20,7 +20,7 @@ $categories = App::getRepository('Category')->getAllCategories();
 			<?php if (empty($_SESSION['user']['user_id'])){?>
             <div class="alert-message block-message success">
                 <h4>Welcome to Tech Adda!</h4>
-                <p>This is the site where event attendees can leave feedback on a tech event and its sessions. Do you have an opinion? Then <a href="<?php ViewHelper::url('?page=login') ?>">log in</a> and share it!</p>
+                <p>This is the site where event attendees can leave feedback on a tech event and its sessions. Do you have an opinion? Then <a href="<?php ViewHelper::url('login') ?>">log in</a> and share it!</p>
             </div>
                 <?php } ?>
             <h4>Upcoming Events</h4>
@@ -40,10 +40,10 @@ $categories = App::getRepository('Category')->getAllCategories();
                         </div>
 
                         <div class="span8">
-                            <h3><a href="<?php ViewHelper::url('?page=event&id=' . $event['event_id']) ?>"><?php echo $event['title'] ?></a></h3>
+                            <h3><a href="<?php ViewHelper::url('event/' . $event['event_id']) ?>"><?php echo $event['title'] ?></a></h3>
                             <p class="align-justify"><?php echo $event['summary'] ?></p>
                             <p>
-                                <a href="<?php ViewHelper::url('?page=event&id=' . $event['event_id'] . '#comments') ?>"><?php echo $event['total_comments'] ?> comments</a> &nbsp;
+                                <a href="<?php ViewHelper::url('event/' . $event['event_id'] . '#comments') ?>"><?php echo $event['total_comments'] ?> comments</a> &nbsp;
                                 <strong><span class="a_count_<?php echo $event['event_id'] ?>"><?php echo $event['total_attending'] ?></span> attending</strong> &nbsp;
                                 <a href="#<?php echo $event['event_id'] ?>" class="btn small attend-event">I'm attending</a>
                             </p>

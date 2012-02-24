@@ -24,7 +24,7 @@ if ($_POST['event_id'] && $_POST['action'] == 'attendMark') {
     $data['user_id'] = intval($_SESSION['user']['user_id']);
     $attend = App::getRepository('Attend')->isUsedAlreadyAttend($data);
     if ($data['user_id'] == 0) {
-        $rpath = ViewHelper::url('?page=login', true);
+        $rpath = ViewHelper::url('login', true);
         $response['status']='login';
         $response['path']=$rpath;
     }elseif(!$attend) {
@@ -50,7 +50,7 @@ if($_POST['action']=='submit_tag'){
     $data['tag']=strip_tags($_POST['tag']);
     
     if ($data['user_id'] == 0) {
-        $rpath = ViewHelper::url('?page=login', true);
+        $rpath = ViewHelper::url('login', true);
         $response['status']='login';
         $response['path']=$rpath;
     }else {

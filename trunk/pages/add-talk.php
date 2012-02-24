@@ -1,4 +1,5 @@
 <?php
+
 if (!empty($_POST))
 {
 	if ($_POST['title'] == '')
@@ -22,14 +23,17 @@ if (!empty($_POST))
 	      $_SESSION['flash']['type'] = 'success';
 		  $_SESSION['flash']['message'] = 'Talk Added Successfully.';
 			
-		  header('Location: ' . ViewHelper::url('?page=event&id=' . $_POST['event_id'], true));
+		  header('Location: ' . ViewHelper::url('event/' . $_POST['event_id'], true));
 		  exit();
 	 }
 }
 $categories = App::getRepository('Category')->getAllCategories();
-?>
 
-<?php include_once 'header.php';?>
+$talkId = App::urlParameter(2);
+
+include_once 'header.php';
+
+?>
 <div class="content">
 
     <div class="row">
@@ -42,7 +46,7 @@ $categories = App::getRepository('Category')->getAllCategories();
 
             <div class="post-comment">
 
-                <form action="<?php ViewHelper::url('?page=add-talk&id='.$_GET['id']) ?>" class="form-stacked" method="post">
+                <form action="<?php ViewHelper::url('add-talk/'.$talkId); ?>" class="form-stacked" method="post">
                     <div class="clearfix">
                         <label for="xlInput3">Talk Title:</label>
                         <div class="input">
@@ -71,7 +75,7 @@ $categories = App::getRepository('Category')->getAllCategories();
                      <div class="clearfix">
                         <label for="xlInput3">Slide Link:</label>
                         <div class="input">
-                            <input type="hidden" name="event_id" value="<?php echo $_GET['id']; ?>"
+                            <input type="hidden" name="event_id" value="<?php echo $talkId; ?>" />
                         </div>
                     </div>
            

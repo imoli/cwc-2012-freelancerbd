@@ -1,11 +1,13 @@
 <?php
 include_once 'header.php';
 
-$event = App::getRepository('Event')->getEventById($_GET['id']);
-$talks = App::getRepository('Talk')->getTalksByEvent($_GET['id']);
+$eventId = App::urlParameter(2);
+
+$event = App::getRepository('Event')->getEventById($eventId);
+$talks = App::getRepository('Talk')->getTalksByEvent($eventId);
 $categories = App::getRepository('Category')->getAllCategories();
 
-$comments = App::getRepository('Comment')->getCommentsByEvent($_GET['id']);
+$comments = App::getRepository('Comment')->getCommentsByEvent($eventId);
 
 
 ?>
@@ -59,7 +61,7 @@ $comments = App::getRepository('Comment')->getCommentsByEvent($_GET['id']);
                 <div class="post-comment">
 
                     <h4>Write a comment:</h4>
-                    <form action="<?php ViewHelper::url('?page=comment') ?>" class="form-stacked" method="post">
+                    <form action="<?php ViewHelper::url('comment') ?>" class="form-stacked" method="post">
 
                         <textarea class="xxlarge" id="comment" name="body" rows="7" cols="50"></textarea>
                         <span class="help-block">Please be polite in your comment as this is a social site.</span> <br />
@@ -73,7 +75,7 @@ $comments = App::getRepository('Comment')->getCommentsByEvent($_GET['id']);
                 }else{
                     ?>
                     <div class="alert-message block-message warning">
-                <h4><a href="<?php ViewHelper::url('?page=login') ?>">login</a> to write comment here</h4>
+                <h4><a href="<?php ViewHelper::url('login') ?>">login</a> to write comment here</h4>
                 
                 </div>
             <?php
@@ -85,9 +87,9 @@ $comments = App::getRepository('Comment')->getCommentsByEvent($_GET['id']);
 	          <div style="float:left;padding-left:20px;">
 	          	 <p style="text-align: center;">
 	                	<?php if ($_SESSION['user']['user_id']): ?>
-	                		<a href="<?php ViewHelper::url('?page=add-talk&id='.$_GET['id']) ?>" class="btn success">Submit Talk!</a>
+	                		<a href="<?php ViewHelper::url('add-talk/'.$eventId) ?>" class="btn success">Submit Talk!</a>
 	                	<?php else: ?>
-	                		<a href="<?php ViewHelper::url('?page=login') ?>" class="btn success">Submit Talk!</a>
+	                		<a href="<?php ViewHelper::url('login') ?>" class="btn success">Submit Talk!</a>
 	                	<?php endif; ?>	
 	               </p>
 	          </div>
@@ -95,7 +97,7 @@ $comments = App::getRepository('Comment')->getCommentsByEvent($_GET['id']);
          </div>
             <ul>
                 <?php foreach ($talks as $talk): ?>
-                    <li><a href="<?php ViewHelper::url('?page=talk&id=' . $talk['talk_id']) ?>"><?php echo $talk['title'] ?></a></li>
+                    <li><a href="<?php ViewHelper::url('talk/' . $talk['talk_id']) ?>"><?php echo $talk['title'] ?></a></li>
                 <?php endforeach; ?>
 
             </ul>

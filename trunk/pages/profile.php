@@ -2,7 +2,7 @@
 
 $userId=intval($_SESSION['user']['user_id']);
 //Paging initialization
-$limit = 2;
+$limit = 3;
 $currentpage = $_GET['p'];
 $link="?";
 ($currentpage) ? $start=($currentpage-1)*$limit : $start=0;
@@ -26,7 +26,7 @@ if (!empty($_POST))
 		$_SESSION['flash']['type'] = 'success';
 		$_SESSION['flash']['message'] = 'Name Updated Successfully.';
 		
-		header('Location: ' . ViewHelper::url('?page=profile', true));
+		header('Location: ' . ViewHelper::url('profile', true));
 		exit();
 	}
 }
@@ -47,7 +47,7 @@ $user = App::getRepository('Profile')->getUserById($userId);
             <?php //echo $user['email'] ?>
             
             
-            <form action="<?php ViewHelper::url('?page=profile') ?>" class="form-stacked" method="post">
+            <form action="<?php ViewHelper::url('profile') ?>" class="form-stacked" method="post">
 
                     <div class="clearfix">
                         <label for="xlInput3">Your Name:</label>

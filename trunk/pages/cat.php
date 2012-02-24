@@ -2,7 +2,9 @@
 
 include_once 'header.php';
 
-$category = App::getRepository('Category')->getCategoryById($_GET['id']);
+$catId = App::urlParameter(2);
+
+$category = App::getRepository('Category')->getCategoryById($catId);
 $activeEvents = App::getRepository('Event')->getActiveEventsByCategory($category['category_id']);
 $categories = App::getRepository('Category')->getAllCategories();
 
@@ -31,10 +33,10 @@ $categories = App::getRepository('Category')->getAllCategories();
                     </div>
 
                     <div class="span8">
-                        <h3><a href="<?php ViewHelper::url('?page=event&id=' . $event['event_id']) ?>"><?php echo $event['title'] ?></a></h3>
+                        <h3><a href="<?php ViewHelper::url('event/' . $event['event_id']) ?>"><?php echo $event['title'] ?></a></h3>
                         <p class="align-justify"><?php echo $event['summary'] ?></p>
                         <p>
-                            <a href="<?php ViewHelper::url('?page=event&id=' . $event['event_id'] . '#comments') ?>"><?php echo $event['total_comments'] ?> comments</a> &nbsp;
+                            <a href="<?php ViewHelper::url('event/' . $event['event_id'] . '#comments') ?>"><?php echo $event['total_comments'] ?> comments</a> &nbsp;
                             <strong><?php echo $event['total_attending'] ?> attending</strong> &nbsp;
                             <a href="<?php ViewHelper::url('?event_id=' . $event['event_id']) ?>" class="btn small">I'm attending</a>
                         </p>
