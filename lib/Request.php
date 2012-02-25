@@ -22,6 +22,8 @@ class Request {
         if ($this->getRequestType() == 'GET') {
             if ($this->resources[0] == 'talks') {
                 return App::getResource("Talks");
+            } else if ($this->resources[0] == 'events') {
+                return App::getResource("Events");
             } else {
                 return App::getResource("Error");
             }
