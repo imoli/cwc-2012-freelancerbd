@@ -70,9 +70,7 @@ class TalksResource extends Resource {
                 $this->output_data = array("error" => "Invalid param");
             }
         } // end post
-
-
-
+		
         return new Response($this);
     }
 
@@ -87,7 +85,7 @@ class TalksResource extends Resource {
     public function validateInput($data) {
         $errorArr = array();
         if (intval(trim(strip_tags($data['event_id']))) <= 0) {
-            $errorArr['event_id'] = "Event id shoud not empty";
+            $errorArr['event_id'] = "Event Id should not empty";
         }
         if (trim(strip_tags($data['title'])) == "") {
             $errorArr['ttile'] = "should not empty";
