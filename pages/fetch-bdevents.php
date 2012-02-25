@@ -1,6 +1,7 @@
 <?php
 include_once 'header.php';
 $apiUrl = "http://192.168.1.4/api/events/";
+//$apiUrl = "http://localhost/unittest/events.json";
 $allContent = App::getRepository('Api')->getAllEvents($apiUrl);
 $categories = App::getRepository('Category')->getAllCategories();
 	?>
@@ -9,10 +10,8 @@ $categories = App::getRepository('Category')->getAllCategories();
             <div id="main-content" class="span10">
                 <h4>All Events</h4>
                 <div class="events">
-                    <?php 
-    
-                    foreach($allContent as $event)
-                    {
+                    <?php
+                    foreach($allContent as $event):
                         $data['title'] = $event->name;
                         $data['summary'] = $event->description;
                         $data['href'] = $event->href;
@@ -21,23 +20,22 @@ $categories = App::getRepository('Category')->getAllCategories();
                         
                         
                         $checkTitle = App::getRepository('Api')->checkDuplicity($data);
-                            if ( !$checkTitle )
-                            {
-                                App::getRepository('Api')->create($data);
-                     ?>
-                    <div class="row event">  
-                        <div class="span8">
-                            <h3><?php echo $data['title'] ?></h3>
-                            <p class="align-justify"><?php echo $data['summary'] ?></p>
-                            <p>Start Date: <?php echo $data['start_date'] ?></p>
-                            <p>End Date: <?php echo $data['end_date'] ?></p>
-                            <p>Website: <a href="<?php echo $data['href'] ?>" target="_blank"><?php echo $data['href'] ?></a></p>
-                        </div>
-    
-                    </div>
-                    		<?php
-                            }
-                    }
+						if ( !$checkTitle ):
+							App::getRepository('Api')->create($data);
+						 ?>
+						<div class="row event">  
+							<div class="span8">
+								<h3><?php echo $data['title'] ?></h3>
+								<p class="align-justify"><?php echo $data['summary'] ?></p>
+								<p><strong>Start Date:</strong> <?php echo $data['start_date'] ?></p>
+								<p><strong>End Date:</strong> <?php echo $data['end_date'] ?></p>
+								<p><strong>Website:</strong> <a href="<?php echo $data['href'] ?>" target="_blank"><?php echo $data['href'] ?></a></p>
+							</div>
+		
+						</div>
+						<?php
+						endif;
+                    endforeach;
                     ?>
             </div>
         </div>
