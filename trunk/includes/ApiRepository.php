@@ -39,7 +39,7 @@ class ApiRepository {
 			$jsonData = json_decode($getFileContents);
 			return $jsonData;
 		}catch(Exception $e){
-			return "No JSon Data";
+			return "Error JSon Data !!!";
 		}
 	}
 }
