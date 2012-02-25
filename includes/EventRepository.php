@@ -48,4 +48,14 @@ class EventRepository {
 					->many();
 		return $totalAttend=count($all);
 	}
+   
+   public function isEventHas($eventId){
+    return $this->db->from('events')
+                    ->where('event_id = ', $eventId)
+                    ->one();
+ }
+   public function getAllEvent() {
+        return $this->db->from('events')
+                    ->many();
+}
 }
