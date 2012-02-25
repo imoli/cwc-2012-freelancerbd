@@ -8,6 +8,7 @@ class Request {
     public $uri;
     public $supportedHttpMethods = array('GET', 'POST');
     public $defaultMethod = 'GET';
+    public $requestedMethod;
     public $requestData;
     public $resources = array();
     public $output_data = array();
@@ -19,7 +20,7 @@ class Request {
     public function loadResource() {
         $this->parseRequestUrl();
 
-        if ($this->getRequestType() == 'GET') {
+        if ($this->getRequestType() == 'GET' || $this->getRequestType() == 'POST') {
             if ($this->resources[0] == 'talks') {
                 return App::getResource("Talks");
             } else if ($this->resources[0] == 'events') {
@@ -27,13 +28,12 @@ class Request {
             } else {
                 return App::getResource("Error");
             }
-        } else if ($this->getRequestType() == 'POST') {
-            
         }
     }
 
     public function getRequestType() {
         $rType = $_SERVER['REQUEST_METHOD'];
+        $this->requestedMethod = $rType;
         if (in_array($rType, $this->supportedHttpMethods)) {
             return $rType;
         } else {
