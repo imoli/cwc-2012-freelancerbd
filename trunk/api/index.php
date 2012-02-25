@@ -19,7 +19,11 @@ include_once 'App.php';
 App::init(APPPATH . '/config/app.ini');
 
 // handle request
-$request = new Request($_REQUEST);
-$resource = $request->loadResource();
-$response = $resource->exec($request);
-$response->output();
+//$request = new Request($_REQUEST);
+//$resource = $request->loadResource();
+//$response = $resource->exec($request);
+//$response->output();
+
+$resource_type='talk';
+$id='1';
+
