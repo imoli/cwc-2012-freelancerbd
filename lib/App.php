@@ -14,6 +14,7 @@ class App {
      * @var Config
      */
     public static $config;
+
     /**
      * @var Sparrow
      */
@@ -76,17 +77,17 @@ class App {
     }
 
     public static function run() {
-		$urlparam = self::urlParameter(1);
+        $urlparam = self::urlParameter(1);
         $page = !empty($urlparam) ? $urlparam : 'home';
 
         if (!file_exists(APPPATH . '/pages/' . $page . '.php')) {
             die("404 Not Found.");
         }
-		if ($page == 'add-event'){
-			if (empty($_SESSION['user']['user_id'])){
-				die('Access Denied.');
-			}
-		}
+        if ($page == 'add-event') {
+            if (empty($_SESSION['user']['user_id'])) {
+                die('Access Denied.');
+            }
+        }
 
         include_once APPPATH . '/pages/' . $page . '.php';
     }
@@ -95,30 +96,40 @@ class App {
         $repository = ucfirst($entity) . 'Repository';
         return new $repository(self::$db);
     }
-	
-	public static function getLeftString($s1, $s2) {
-		return substr($s1, 0, strpos($s1, $s2));
-	}
 
-	public static function getFullUrl(){
-		if(!isset($_SERVER['REQUEST_URI'])){ $serverrequri = $_SERVER['PHP_SELF']; }
-		else{ $serverrequri = $_SERVER['REQUEST_URI']; }
-		$s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
-		$protocol = self::getLeftString(strtolower($_SERVER["SERVER_PROTOCOL"]), "/").$s;
-		$port = ($_SERVER["SERVER_PORT"] == "80") ? "" : (":".$_SERVER["SERVER_PORT"]);
-		return $protocol."://".$_SERVER['SERVER_NAME'].$port.$serverrequri;
-	}
-	
-	public static function fetchHostName($url){
-		preg_match('@^(?:http://)?([^/]+)@i',$url,$matches);
-		return $host=$matches[1];
-	}
-	
-	public static function urlParameter($num){
-		$url_data=parse_url(self::getFullUrl());
-		$path=explode("/",$url_data['path']);
-		if(self::fetchHostName(self::getFullUrl())=='localhost') $pathplus=$path[trim($num)+1]; else $pathplus=$path[trim($num)];
-		return $pathplus;
-	}
+    public static function getResource($entity) {
+        $resource = ucfirst($entity) . 'Resource';
+        return new $resource(self::$db);
+    }
+
+    public static function getLeftString($s1, $s2) {
+        return substr($s1, 0, strpos($s1, $s2));
+    }
+
+    public static function getFullUrl() {
+        if (!isset($_SERVER['REQUEST_URI'])) {
+            $serverrequri = $_SERVER['PHP_SELF'];
+        } else {
+            $serverrequri = $_SERVER['REQUEST_URI'];
+        }
+        $s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
+        $protocol = self::getLeftString(strtolower($_SERVER["SERVER_PROTOCOL"]), "/") . $s;
+        $port = ($_SERVER["SERVER_PORT"] == "80") ? "" : (":" . $_SERVER["SERVER_PORT"]);
+        return $protocol . "://" . $_SERVER['SERVER_NAME'] . $port . $serverrequri;
+    }
+
+    public static function fetchHostName($url) {
+        preg_match('@^(?:http://)?([^/]+)@i', $url, $matches);
+        return $host = $matches[1];
+    }
+
+    public static function urlParameter($num) {
+        $url_data = parse_url(self::getFullUrl());
+        $path = explode("/", $url_data['path']);
+        if (self::fetchHostName(self::getFullUrl()) == 'localhost')
+            $pathplus = $path[trim($num) + 1]; else
+            $pathplus = $path[trim($num)];
+        return $pathplus;
+    }
 
 }
